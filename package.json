@@ -1,0 +1,17 @@
+{
+  "name": "my-web-app",
+  "version": "1.0.0",
+  "description": "It is a personal blog",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "author": "Anastasia Pavlush",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.19.2"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.0"
+  }
+}
