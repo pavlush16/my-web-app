@@ -1,16 +1,39 @@
 const path = require('path');
-const expressEdge = require('express-edge')
+const expressEdge = require('express-edge');
 const express = require('express');
+const mongoose = require('mongoose');
+const bodyParser = require('body-parser')
+
+const Post = require('./database/models/Post')
 
 const app = new express();
+
+mongoose.connect('mongodb://localhost:27017/bloghub')
 
 app.use(express.static('public'))
 app.use(expressEdge)
 app.set('views', `${__dirname}/views`)
 
+app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({ extended: true }))
+
 app.get('/', (req, res) => {
     res.render('index')
 })
+
+app.get('/posts/new', (req, res) => {
+    res.render('create')
+})
+
+app.post('/posts/store', async (req, res) => {
+    try {
+        const post = await Post.create(req.body);
+    } catch (error) {
+        res.status(500).send({ error: error.message });
+    } finally {
+        res.redirect('/')
+    }
+});
 
 app.get('/about', (req, res) => {
     res.render('about')
