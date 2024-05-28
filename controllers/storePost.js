@@ -18,7 +18,8 @@ module.exports = async (req, res) => {
         // Create the post using the data in the request body
         const post = await Post.create({
             ...req.body,
-            image: `/posts/${image.name}` // Save the relative path of the image in the post document
+            image: `/posts/${image.name}`,
+            author: req.session.userId,
         });
 
         res.redirect('/');
